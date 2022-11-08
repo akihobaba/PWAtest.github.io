@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discriminator</title>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <link rel="manifest" href="/manifest.json">
+
+    <!--iOS version-->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="food_disc">
+    <link rel="apple-touch-icon" href="icons/icon-152x152.png">
+</head>
+<body>
+    <header>
+        <p class="header-title">料理判定！</p>
+    </header>
+
+    <div class="wrapper">
+        <h2 class="wrapper-title"> AIが送信された画像を判別します</h2>
+        <p class="wrapper-comment">画像を送信してください</p>
+        <form method="POST" enctype="multipart/form-data">
+            <input class="file_choose" type="file" name="file" accept="image/*" onchange="previewImage(this)">
+            <input class="btn" value="submit!" type="submit">
+        </form>
+        <p>
+            Preview:<br>
+            <div style="text-align:center">
+            <img id="preview" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" style="max-width:200px;">
+            </div>
+            </p>
+            <script>
+            function previewImage(obj)
+            {
+                var fileReader = new FileReader();
+                fileReader.onload = (function() {
+                    document.getElementById('preview').src = fileReader.result;
+                });
+                fileReader.readAsDataURL(obj.files[0]);
+            }
+            </script>
+        <div class="answer">{{answer}}</div>
+        <div class="up_img">
+            {% if filepath %}
+                <img class="filepath" src={{filepath}} height="200">
+            {% endif %}
+        </div>
+        <p>
+          <a href="http://127.0.0.1:8883/sample.html">戻る</a>
+        </p>
+    </div>
+
+    <footer>
+        <small class="last-text">リメイクレシピ提案</small>
+    </footer>
+
+</body>
+</html>
